@@ -60,7 +60,7 @@ def generate_technician_work_orders(db=None):
                     "urgency": urgency,
                     "recommended_spares": spares_map.get(degraded_var, spares_map["temperature"]),
                     "required_tools": ["Digital Multimeter (Fluke 87V)", "Variable Calibrator", "Hex Key Set", "IP67 Enclosure Sealant"],
-                    "field_notes": f"Automated AETHERIX Sentinel Dispatch: {st.name} {degraded_var.capitalize()} sensor shows RUL of {var_info.get('rul_days', 5)} days. {var_info.get('proactive_advisory', '')}",
+                    "field_notes": f"Automated MeteoVision Dispatch: {st.name} {degraded_var.capitalize()} sensor shows RUL of {var_info.get('rul_days', 5)} days. {var_info.get('proactive_advisory', '')}",
                     "dispatch_json_payload": {
                         "event": "TECHNICIAN_DISPATCH_REQUIRED",
                         "station_id": st.station_id,

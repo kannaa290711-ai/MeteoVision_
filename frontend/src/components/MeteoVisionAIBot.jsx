@@ -86,7 +86,9 @@ export default function MeteoVisionAIBot({ selectedStation, stations = [], activ
         borderBottom: "1px solid #2c2c36",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: "10px"
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <div style={{
@@ -97,16 +99,17 @@ export default function MeteoVisionAIBot({ selectedStation, stations = [], activ
             color: "#a855f7",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            flexShrink: 0
           }}>
             <Bot size={18} />
           </div>
-          <div>
-            <h3 style={{ fontSize: "14px", fontWeight: "800", color: "#e8e8ea", margin: 0 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+            <h3 style={{ fontSize: "14px", fontWeight: "800", color: "#e8e8ea", margin: 0, lineHeight: "1.2" }}>
               MeteoVision AI Assistant
             </h3>
             <div style={{ fontSize: "11px", color: "#6b9e78", display: "flex", alignItems: "center", gap: "4px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#6b9e78" }}></span>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#6b9e78", flexShrink: 0 }}></span>
               Active Context: <strong>{activeStName}</strong> ({activeStHealth}/100)
             </div>
           </div>
@@ -119,7 +122,8 @@ export default function MeteoVisionAIBot({ selectedStation, stations = [], activ
           color: "#9c9ca4",
           padding: "2px 8px",
           borderRadius: "10px",
-          border: "1px solid #2c2c36"
+          border: "1px solid #2c2c36",
+          whiteSpace: "nowrap"
         }}>
           Context-Aware LLM Engine
         </span>

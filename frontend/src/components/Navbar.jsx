@@ -35,7 +35,7 @@ export default function Navbar({ activeAnomaliesCount = 0, activeTab = "dashboar
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <h1 style={{ fontSize: "17px", fontWeight: "700", letterSpacing: "0.5px", color: "#e8e8ea" }}>
-              AETHERIX SENTINEL
+              METEOVISION
             </h1>
             <span style={{
               fontSize: "11px",
@@ -50,7 +50,7 @@ export default function Navbar({ activeAnomaliesCount = 0, activeTab = "dashboar
             </span>
           </div>
           <p style={{ fontSize: "12px", color: "#9c9ca4" }}>
-            AWS Anomaly Detection, Self-Healing & Health Scoring Platform
+            AI-Powered AWS Monitoring, Anomaly Detection & Weather Intelligence Platform
           </p>
         </div>
       </div>

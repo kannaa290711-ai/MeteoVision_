@@ -22,7 +22,7 @@ from backend.app.crud import (
 from evaluate import evaluate_detection_performance
 
 app = FastAPI(
-    title="AETHERIX SENTINEL - AWS Anomaly Detection & Self-Healing API",
+    title="METEOVISION - AWS Anomaly Detection & Self-Healing API",
     description="Phase 3 API for SIH 2026 Problem Statement 26073 - Self-Healing, Health Scoring & XAI Narrative Engine",
     version="3.0.0"
 )
@@ -41,7 +41,7 @@ app.add_middleware(
 def read_root():
     return {
         "status": "online",
-        "system": "AETHERIX SENTINEL",
+        "system": "METEOVISION",
         "phase": "Phase 3 Self-Healing & Health Scoring",
         "docs_url": "/docs"
     }

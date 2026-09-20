@@ -133,7 +133,7 @@ export default function WeatherPatternView({ stations = [] }) {
           lineHeight: "1.4"
         }}>
           <strong style={{ color: "#e8e8ea" }}>Why Reliable Sensor Data Matters for Risk Assessment:</strong>{" "}
-          Weather forecasting and hazard alerts rely entirely on input data quality. Raw un-cleansed sensor faults (such as a +10°C hardware spike or baseline drift) distort weather models and generate false alarms. AETHERIX SENTINEL self-heals telemetry first, ensuring risk indicators are grounded in verified ground truth.
+          Weather forecasting and hazard alerts rely entirely on input data quality. Raw un-cleansed sensor faults (such as a +10°C hardware spike or baseline drift) distort weather models and generate false alarms. METEOVISION self-heals telemetry first, ensuring risk indicators are grounded in verified ground truth.
         </div>
       </div>
 

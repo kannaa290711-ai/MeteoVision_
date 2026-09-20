@@ -41,7 +41,7 @@ export default function FutureVisionView() {
             <span style={{ fontSize: "11px", color: "#6c6c74" }}>| SIH Problem Statement 26073 Vision</span>
           </div>
           <h1 style={{ fontSize: "22px", fontWeight: "700", letterSpacing: "0.5px", color: "#e8e8ea" }}>
-            AETHERIX SENTINEL — Technical Roadmap & Strategic Vision
+            METEOVISION — Technical Roadmap & Strategic Vision
           </h1>
           <p style={{ fontSize: "13px", color: "#9c9ca4", marginTop: "4px", maxWidth: "820px", lineHeight: "1.5" }}>
             Scaling from AWS Quality Control to National Climate Data Infrastructure, Satellite Fusion, and Predictive Atmospheric Intelligence.

@@ -26,7 +26,7 @@ export default function UserJourneyBanner() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
         <div>
           <h1 style={{ fontSize: "16px", fontWeight: "700", color: "#e8e8ea", margin: 0 }}>
-            AETHERIX SENTINEL — <span style={{ color: "#3b82f6" }}>Intelligent AWS Monitoring & Anomaly Detection</span>
+            METEOVISION — <span style={{ color: "#3b82f6" }}>Intelligent AWS Monitoring & Anomaly Detection</span>
           </h1>
           <p style={{ fontSize: "12px", color: "#9c9ca4", margin: "3px 0 0 0" }}>
             An AI-powered platform for intelligent monitoring of Automatic Weather Stations, sensor anomalies, and weather patterns.
