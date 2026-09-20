@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Activity, ShieldAlert, CheckCircle2, Clock, Sparkles, LayoutDashboard, CloudRain } from "lucide-react";
+import { Activity, ShieldAlert, CheckCircle2, Clock } from "lucide-react";
 
 export default function Navbar({ activeAnomaliesCount = 0, activeTab = "dashboard", onSelectTab }) {
   const [timeStr, setTimeStr] = useState(new Date().toLocaleTimeString());
@@ -37,17 +37,6 @@ export default function Navbar({ activeAnomaliesCount = 0, activeTab = "dashboar
             <h1 style={{ fontSize: "17px", fontWeight: "700", letterSpacing: "0.5px", color: "#e8e8ea" }}>
               METEOVISION
             </h1>
-            <span style={{
-              fontSize: "11px",
-              padding: "2px 8px",
-              borderRadius: "12px",
-              backgroundColor: "rgba(59, 130, 246, 0.12)",
-              color: "#3b82f6",
-              fontWeight: "600",
-              border: "1px solid rgba(59, 130, 246, 0.3)"
-            }}>
-              Phases 1-3 Verified | SIH PS-26073
-            </span>
           </div>
           <p style={{ fontSize: "12px", color: "#9c9ca4" }}>
             AI-Powered AWS Monitoring, Anomaly Detection & Weather Intelligence Platform

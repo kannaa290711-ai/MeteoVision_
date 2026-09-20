@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
-import DemoControlBar from "./components/DemoControlBar";
 import Navbar from "./components/Navbar";
 import UserJourneyBanner from "./components/UserJourneyBanner";
 import MetricsCard from "./components/MetricsCard";
@@ -76,9 +75,6 @@ export default function App() {
   const [metrics, setMetrics] = useState(FALLBACK_METRICS);
   const [selectedStationId, setSelectedStationId] = useState(null); // Default NULL so drawer is CLOSED until clicked
   const [loading, setLoading] = useState(false);
-  const [isDemoActive, setIsDemoActive] = useState(true);
-  const [activeScenario, setActiveScenario] = useState("spike");
-  const [isWeatherEventDemo, setIsWeatherEventDemo] = useState(false);
 
   const loadDashboardData = async () => {
     try {
@@ -129,41 +125,6 @@ export default function App() {
     };
   }, []);
 
-  // Handler for SIH Demo Scenario selection
-  const handleSelectScenario = (scenarioId) => {
-    setActiveScenario(scenarioId);
-    if (scenarioId === "spike") {
-      setSelectedStationId("AWS_002");
-      setIsWeatherEventDemo(false);
-      setActiveTab("dashboard");
-    } else if (scenarioId === "drift") {
-      setSelectedStationId("AWS_005");
-      setIsWeatherEventDemo(false);
-      setActiveTab("dashboard");
-    } else if (scenarioId === "frozen") {
-      setSelectedStationId("AWS_001");
-      setIsWeatherEventDemo(false);
-      setActiveTab("dashboard");
-    } else if (scenarioId === "missing") {
-      setSelectedStationId("AWS_003");
-      setIsWeatherEventDemo(false);
-      setActiveTab("dashboard");
-    } else if (scenarioId === "weather-event") {
-      setSelectedStationId("AWS_002");
-      setIsWeatherEventDemo(true);
-      setActiveTab("nearby-analysis");
-    } else if (scenarioId === "cyclone") {
-      setIsWeatherEventDemo(false);
-      setActiveTab("alerts-center");
-    }
-  };
-
-  const handleResetDemo = () => {
-    setActiveScenario(null);
-    setIsWeatherEventDemo(false);
-    setSelectedStationId(null);
-  };
-
   const activeAnomaliesCount = stations.filter((s) => s.status === "ANOMALY").length;
   // ONLY set selectedStation if selectedStationId is explicitly set!
   const selectedStation = selectedStationId ? stations.find((s) => s.station_id === selectedStationId) : null;
@@ -174,8 +135,6 @@ export default function App() {
       <Sidebar
         activeTab={activeTab}
         onSelectTab={(tab) => setActiveTab(tab)}
-        isDemoActive={isDemoActive}
-        onToggleDemo={() => setIsDemoActive(!isDemoActive)}
       />
 
       {/* Main Workspace Right Area */}
@@ -186,15 +145,6 @@ export default function App() {
           activeTab={activeTab}
           onSelectTab={(tab) => setActiveTab(tab)}
         />
-
-        {/* SIH Demo Mode Control Header Bar */}
-        {isDemoActive && (
-          <DemoControlBar
-            activeScenario={activeScenario}
-            onSelectScenario={handleSelectScenario}
-            onResetDemo={handleResetDemo}
-          />
-        )}
 
         {/* View Router */}
         <main style={{ flex: 1, padding: "16px", display: "flex", flexDirection: "column", overflowY: "auto" }}>
@@ -247,15 +197,15 @@ export default function App() {
           ) : activeTab === "alerts-center" ? (
             <DisasterAlertCenter stations={stations} />
           ) : activeTab === "ai-bot" ? (
-            <MeteoVisionAIBot selectedStation={selectedStation || stations[1]} stations={stations} activeScenario={activeScenario} />
+            <MeteoVisionAIBot selectedStation={selectedStation || stations[1]} stations={stations} />
           ) : activeTab === "nearby-analysis" ? (
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <NearbyStationComparison suspectStation={selectedStation || stations[1]} allStations={stations} isWeatherEvent={isWeatherEventDemo} />
+              <NearbyStationComparison suspectStation={selectedStation || stations[1]} allStations={stations} />
               <FiveDayWeatherHistory station={selectedStation || stations[1]} />
             </div>
           ) : activeTab === "sensor-health" ? (
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <SensorHealthDeterioration station={selectedStation || stations[1]} isDemoCritical={(selectedStation || stations[1]).health_score < 50} />
+              <SensorHealthDeterioration station={selectedStation || stations[1]} />
               <MetricsCard metrics={metrics} />
             </div>
           ) : activeTab === "analytics" ? (
@@ -265,7 +215,7 @@ export default function App() {
             </div>
           ) : activeTab === "weather-risk" ? (
             <WeatherPatternView stations={stations} />
-          ) : activeTab === "roadmap" || activeTab === "settings-demo" ? (
+          ) : activeTab === "roadmap" || activeTab === "settings" ? (
             <FutureVisionView />
           ) : (
             /* Live Dashboard Workspace */
@@ -300,7 +250,6 @@ export default function App() {
           station={selectedStation}
           allStations={stations}
           onClose={() => setSelectedStationId(null)}
-          isWeatherEventDemo={isWeatherEventDemo}
         />
       )}
     </div>

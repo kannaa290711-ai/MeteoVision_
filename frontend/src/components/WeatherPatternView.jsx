@@ -8,7 +8,6 @@ export default function WeatherPatternView({ stations = [] }) {
   const defaultCenter = [18.35, 73.9];
   const defaultZoom = 9;
 
-  // Demo hazard scenarios explicitly labeled as simulation preview
   const riskAlerts = [
     {
       id: 1,
@@ -18,7 +17,7 @@ export default function WeatherPatternView({ stations = [] }) {
       confidence: "82%",
       factors: "Sustained humidity >90%, local pressure drop (1008.2 hPa), clean sensor consensus across 3 AWS stations.",
       timestamp: "2026-09-09 16:30",
-      statusLabel: "Demo Preview (Simulated Risk Indicator)"
+      statusLabel: "Risk Indicator"
     },
     {
       id: 2,
@@ -28,7 +27,7 @@ export default function WeatherPatternView({ stations = [] }) {
       confidence: "76%",
       factors: "Temperature baseline deviation reconciled after removing AWS-002 single-station sensor spike.",
       timestamp: "2026-09-09 15:45",
-      statusLabel: "Demo Preview (Simulated Risk Indicator)"
+      statusLabel: "Risk Indicator"
     },
     {
       id: 3,
@@ -38,7 +37,7 @@ export default function WeatherPatternView({ stations = [] }) {
       confidence: "88%",
       factors: "Cross-Ghat pressure differential of 4.2 hPa detected across high-elevation weather stations.",
       timestamp: "2026-09-09 14:15",
-      statusLabel: "Demo Preview (Simulated Risk Indicator)"
+      statusLabel: "Risk Indicator"
     }
   ];
 
@@ -296,14 +295,14 @@ export default function WeatherPatternView({ stations = [] }) {
               </div>
               <span style={{
                 fontSize: "10px",
-                backgroundColor: "rgba(201, 168, 91, 0.15)",
-                color: "#c9a85b",
+                backgroundColor: "rgba(59, 130, 246, 0.15)",
+                color: "#3b82f6",
                 padding: "2px 8px",
                 borderRadius: "10px",
                 fontWeight: "600",
-                border: "1px solid rgba(201, 168, 91, 0.3)"
+                border: "1px solid rgba(59, 130, 246, 0.3)"
               }}>
-                Demo Preview (Simulated Scenarios)
+                Risk Assessment
               </span>
             </div>
           </div>

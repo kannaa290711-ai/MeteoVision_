@@ -7,7 +7,7 @@ import NearbyStationComparison from "./NearbyStationComparison";
 import FiveDayWeatherHistory from "./FiveDayWeatherHistory";
 import SensorHealthDeterioration from "./SensorHealthDeterioration";
 
-export default function StationDrawer({ station, allStations = [], onClose, isWeatherEventDemo = false }) {
+export default function StationDrawer({ station, allStations = [], onClose }) {
   const [activeTab, setActiveTab] = useState("temperature");
   const [historyDays, setHistoryDays] = useState(4);
   const [telemetryMode, setTelemetryMode] = useState("healed");
@@ -59,8 +59,8 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
             spatial_score: alertObj?.spatial_score ?? 1.69,
             frozen_score: alertObj?.frozen_score ?? 0.00,
             drift_score: alertObj?.drift_score ?? 0.80,
-            neighbor_agreement: alertObj?.neighbor_agreement ?? (isWeatherEventDemo ? 0.84 : 0.33),
-            multivariate_consistency_score: alertObj?.multivariate_consistency_score ?? (isWeatherEventDemo ? 0.78 : 0.08),
+            neighbor_agreement: alertObj?.neighbor_agreement ?? 0.33,
+            multivariate_consistency_score: alertObj?.multivariate_consistency_score ?? 0.08,
             ml_confidence: alertObj?.ml_confidence ?? 0.85,
             shap_summary: alertObj?.shap_summary ?? null,
             shap_contributions: alertObj?.shap_contributions ?? null
@@ -72,7 +72,7 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
       })
       .catch((err) => console.error("Error fetching station analytics:", err))
       .finally(() => setLoading(false));
-  }, [station, activeTab, historyDays, isWeatherEventDemo]);
+  }, [station, activeTab, historyDays]);
 
   if (!station) return null;
 
@@ -87,8 +87,8 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
     ml_confidence: 0.94,
     temporal_score: 0.38,
     spatial_score: 1.69,
-    neighbor_agreement: isWeatherEventDemo ? 0.84 : 0.12,
-    multivariate_consistency_score: isWeatherEventDemo ? 0.78 : 0.08,
+    neighbor_agreement: 0.12,
+    multivariate_consistency_score: 0.08,
     timestamp: new Date().toISOString()
   };
 
@@ -104,7 +104,7 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
 
   const handleAskDrawerAi = () => {
     if (!drawerAiQuery.trim()) return;
-    setDrawerAiReply(`MeteoVision AI Answer: For ${station.name}, the current health score is ${score}/100 (${tier}). Analysis confirms ${isWeatherEventDemo ? "CORRELATED REGIONAL WEATHER FRONT" : "ISOLATED SENSOR FAULT"}. Field recommended action: inspect sensor element and clean radiation shield.`);
+    setDrawerAiReply(`MeteoVision AI Answer: For ${station.name}, the current health score is ${score}/100 (${tier}). Analysis confirms ISOLATED SENSOR FAULT. Field recommended action: inspect sensor element and clean radiation shield.`);
   };
 
   return (
@@ -195,14 +195,14 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
 
       {/* 4. NEARBY STATION COMPARISON */}
       <div style={{ marginTop: "16px" }}>
-        <NearbyStationComparison suspectStation={station} allStations={allStations} isWeatherEvent={isWeatherEventDemo} />
+        <NearbyStationComparison suspectStation={station} allStations={allStations} />
       </div>
 
       {/* 5. PREVIOUS 5 DAYS WEATHER HISTORY */}
       <FiveDayWeatherHistory station={station} />
 
       {/* 6. SENSOR HEALTH TREND & DETERIORATION */}
-      <SensorHealthDeterioration station={station} isDemoCritical={score < 50} />
+      <SensorHealthDeterioration station={station} />
 
       {/* 7. WEATHER EVENT VS SENSOR FAULT PROBABILITY GAUGE */}
       <div style={{
@@ -218,23 +218,23 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
           <div style={{
             backgroundColor: "#1c1c22",
-            border: `1px solid ${isWeatherEventDemo ? "#b85c5c40" : "#b85c5c"}`,
+            border: "1px solid #b85c5c",
             padding: "8px",
             borderRadius: "6px",
             textAlign: "center"
           }}>
             <div style={{ fontSize: "10px", color: "#9c9ca4" }}>Sensor Fault Probability</div>
-            <strong style={{ fontSize: "16px", color: "#b85c5c" }}>{isWeatherEventDemo ? "16%" : "84%"}</strong>
+            <strong style={{ fontSize: "16px", color: "#b85c5c" }}>84%</strong>
           </div>
           <div style={{
             backgroundColor: "#1c1c22",
-            border: `1px solid ${isWeatherEventDemo ? "#6b9e78" : "#6b9e7840"}`,
+            border: "1px solid #6b9e7840",
             padding: "8px",
             borderRadius: "6px",
             textAlign: "center"
           }}>
             <div style={{ fontSize: "10px", color: "#9c9ca4" }}>Weather Event Probability</div>
-            <strong style={{ fontSize: "16px", color: "#6b9e78" }}>{isWeatherEventDemo ? "84%" : "16%"}</strong>
+            <strong style={{ fontSize: "16px", color: "#6b9e78" }}>16%</strong>
           </div>
         </div>
       </div>
@@ -255,7 +255,7 @@ export default function StationDrawer({ station, allStations = [], onClose, isWe
           {station.maintenance_recommendation || "Inspect temperature RTD sensor element & clean radiation solar shield."}
         </div>
         <button
-          onClick={() => alert(`DISPATCH SIMULATED:\n\nPayload sent to field crew for ${station.name} (${station.station_id})!\nTarget: ${activeTab.toUpperCase()} Sensor Element.\nLat/Lon: ${station.lat}, ${station.lon}`)}
+          onClick={() => alert(`DISPATCHED:\n\nPayload sent to field crew for ${station.name} (${station.station_id})!\nTarget: ${activeTab.toUpperCase()} Sensor Element.\nLat/Lon: ${station.lat}, ${station.lon}`)}
           style={{
             width: "100%",
             padding: "7px",

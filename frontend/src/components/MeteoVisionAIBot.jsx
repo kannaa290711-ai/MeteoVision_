@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Bot, Send, Sparkles, User, HelpCircle, CheckCircle2, AlertTriangle, RefreshCw } from "lucide-react";
 
-export default function MeteoVisionAIBot({ selectedStation, stations = [], activeScenario = null }) {
+export default function MeteoVisionAIBot({ selectedStation, stations = [] }) {
   const [inputQuery, setInputQuery] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -44,11 +44,7 @@ export default function MeteoVisionAIBot({ selectedStation, stations = [], activ
       if (qLower.includes("unhealthy") || qLower.includes("health") || qLower.includes("why is")) {
         botAnswer = `${activeStName} currently has a Sensor Health Score of ${activeStHealth}/100 (${activeStTier.toUpperCase()}). The primary driver is a flagged temperature spike anomaly where the reading jumped +9.1°C above baseline while neighboring stations remained physically stable.`;
       } else if (qLower.includes("fault") || qLower.includes("weather event") || qLower.includes("sensor fault")) {
-        if (activeScenario === "weather-event") {
-          botAnswer = `Based on spatial-temporal graph analysis, this is classified as a LIKELY GENUINE WEATHER EVENT. Nearby stations (Satara, Pune, Lonavala) show a correlated pressure drop (-12 hPa) and humidity jump (88%), yielding a high Spatial Correlation of 0.84.`;
-        } else {
-          botAnswer = `Based on spatial-temporal graph analysis, this is classified as an ISOLATED SENSOR FAULT (Confidence: 94%). Nearby AWS stations show normal telemetry, yielding a low spatial agreement of 12%.`;
-        }
+        botAnswer = `Based on spatial-temporal graph analysis, this is classified as an ISOLATED SENSOR FAULT (Confidence: 94%). Nearby AWS stations show normal telemetry, yielding a low spatial agreement of 12%.`;
       } else if (qLower.includes("compare") || qLower.includes("nearby")) {
         botAnswer = `Comparing ${activeStName} (29.2°C) with nearby stations:\n• Satara AWS: 20.3°C (Normal)\n• Pune Central AWS: 21.1°C (Normal)\n• Lonavala Hill AWS: 20.7°C (Normal)\n\nConclusion: Low spatial agreement confirms isolated sensor discrepancy.`;
       } else if (qLower.includes("5 days") || qLower.includes("previous 5") || qLower.includes("history")) {
@@ -104,14 +100,10 @@ export default function MeteoVisionAIBot({ selectedStation, stations = [], activ
           }}>
             <Bot size={18} />
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+          <div>
             <h3 style={{ fontSize: "14px", fontWeight: "800", color: "#e8e8ea", margin: 0, lineHeight: "1.2" }}>
               MeteoVision AI Assistant
             </h3>
-            <div style={{ fontSize: "11px", color: "#6b9e78", display: "flex", alignItems: "center", gap: "4px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#6b9e78", flexShrink: 0 }}></span>
-              Active Context: <strong>{activeStName}</strong> ({activeStHealth}/100)
-            </div>
           </div>
         </div>
 

@@ -2,11 +2,11 @@ import React from "react";
 import { HeartPulse, AlertTriangle, ShieldAlert, CheckCircle2, TrendingDown, BellRing } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
-export default function SensorHealthDeterioration({ station, isDemoCritical = false }) {
+export default function SensorHealthDeterioration({ station }) {
   if (!station) return null;
 
-  const currentScore = isDemoCritical ? 48.0 : (station.health_score ?? 62.0);
-  const statusTier = isDemoCritical ? "Critical" : (station.status_tier || (currentScore < 50 ? "Critical" : (currentScore < 70 ? "Degraded" : (currentScore < 85 ? "Watch" : "Healthy"))));
+  const currentScore = station.health_score ?? 62.0;
+  const statusTier = station.status_tier || (currentScore < 50 ? "Critical" : (currentScore < 70 ? "Degraded" : (currentScore < 85 ? "Watch" : "Healthy")));
 
   const getTierColor = (tier) => {
     switch (tier) {
@@ -20,14 +20,8 @@ export default function SensorHealthDeterioration({ station, isDemoCritical = fa
 
   const accentColor = getTierColor(statusTier);
 
-  // 5-Day Health History Deterioration Trend Data
-  const healthTrendData = isDemoCritical ? [
-    { day: "Day 1", score: 92, label: "Healthy" },
-    { day: "Day 2", score: 84, label: "Watch" },
-    { day: "Day 3", score: 71, label: "Watch" },
-    { day: "Day 4", score: 58, label: "Degraded" },
-    { day: "Day 5", score: 48, label: "Critical" },
-  ] : [
+  // 5-Day Health History Trend Data
+  const healthTrendData = [
     { day: "Day 1", score: 94, label: "Healthy" },
     { day: "Day 2", score: 91, label: "Healthy" },
     { day: "Day 3", score: 86, label: "Healthy" },
@@ -35,8 +29,8 @@ export default function SensorHealthDeterioration({ station, isDemoCritical = fa
     { day: "Day 5", score: Math.round(currentScore), label: statusTier },
   ];
 
-  const handleSendDemoAlert = () => {
-    alert(`DEMO NOTIFICATION ALERT TRIGGERED:\n\n[CRITICAL SENSOR HEALTH WARNING]\nStation: ${station.name} (${station.station_id})\nHealth Score: ${currentScore}/100 (CRITICAL)\nRecommended Action: Immediate sensor inspection required.\n\nSMS & Datalogger Maintenance Dispatch Payload Sent!`);
+  const handleSendAlert = () => {
+    alert(`SENSOR HEALTH ALERT NOTIFICATION:\n\n[CRITICAL SENSOR HEALTH WARNING]\nStation: ${station.name} (${station.station_id})\nHealth Score: ${currentScore}/100 (CRITICAL)\nRecommended Action: Immediate sensor inspection required.\n\nSMS & Datalogger Maintenance Dispatch Payload Sent!`);
   };
 
   return (
@@ -66,7 +60,7 @@ export default function SensorHealthDeterioration({ station, isDemoCritical = fa
       </div>
 
       {/* Prominent Critical Warning Banner if score < 50 */}
-      {(currentScore < 50 || isDemoCritical) && (
+      {currentScore < 50 && (
         <div style={{
           backgroundColor: "rgba(184, 92, 92, 0.2)",
           border: "1px solid #b85c5c",
@@ -89,7 +83,7 @@ export default function SensorHealthDeterioration({ station, isDemoCritical = fa
             </div>
           </div>
           <button
-            onClick={handleSendDemoAlert}
+            onClick={handleSendAlert}
             style={{
               padding: "6px 12px",
               backgroundColor: "#b85c5c",
@@ -104,7 +98,7 @@ export default function SensorHealthDeterioration({ station, isDemoCritical = fa
               gap: "5px"
             }}
           >
-            <BellRing size={13} /> Trigger Demo Alert
+            <BellRing size={13} /> Dispatch Alert
           </button>
         </div>
       )}

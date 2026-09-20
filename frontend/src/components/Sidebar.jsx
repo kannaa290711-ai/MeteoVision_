@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {
   LayoutDashboard, Map, Radio, AlertTriangle, HeartPulse, BarChart3,
   GitCompare, CloudRain, ShieldAlert, Bot, Wrench, Activity, Settings,
-  ChevronLeft, ChevronRight, Menu, X, Sparkles
+  ChevronLeft, ChevronRight, Menu, X
 } from "lucide-react";
 
-export default function Sidebar({ activeTab, onSelectTab, isDemoActive, onToggleDemo }) {
+export default function Sidebar({ activeTab, onSelectTab }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -22,7 +22,7 @@ export default function Sidebar({ activeTab, onSelectTab, isDemoActive, onToggle
     { id: "ai-bot", label: "MeteoVision AI Bot", icon: Bot },
     { id: "maintenance", label: "Maintenance & Spares", icon: Wrench },
     { id: "metrics", label: "Model Performance", icon: Activity },
-    { id: "settings-demo", label: "SIH Demo & Settings", icon: Settings },
+    { id: "settings", label: "Settings", icon: Settings },
   ];
 
   const handleSelect = (id) => {
@@ -90,9 +90,6 @@ export default function Sidebar({ activeTab, onSelectTab, isDemoActive, onToggle
                 <h1 style={{ fontSize: "15px", fontWeight: "800", color: "#e8e8ea", margin: 0, letterSpacing: "0.5px" }}>
                   METEO<span style={{ color: "#3b82f6" }}>VISION</span>
                 </h1>
-                <span style={{ fontSize: "10px", color: "#6b9e78", fontWeight: "700" }}>
-                  SIH 2026 | PS 26073
-                </span>
               </div>
             </div>
           )}
@@ -126,31 +123,6 @@ export default function Sidebar({ activeTab, onSelectTab, isDemoActive, onToggle
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-          </button>
-        </div>
-
-        {/* SIH Demo Mode Trigger Button */}
-        <div style={{ padding: collapsed ? "8px 4px" : "10px 12px", borderBottom: "1px solid #2c2c36" }}>
-          <button
-            onClick={onToggleDemo}
-            style={{
-              width: "100%",
-              padding: collapsed ? "8px 0" : "8px 12px",
-              backgroundColor: isDemoActive ? "rgba(184, 92, 92, 0.2)" : "rgba(59, 130, 246, 0.15)",
-              color: isDemoActive ? "#f87171" : "#3b82f6",
-              border: `1px solid ${isDemoActive ? "rgba(184, 92, 92, 0.4)" : "rgba(59, 130, 246, 0.3)"}`,
-              borderRadius: "6px",
-              fontSize: "11px",
-              fontWeight: "700",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: collapsed ? "center" : "flex-start",
-              gap: "8px"
-            }}
-          >
-            <Sparkles size={15} />
-            {!collapsed && <span>{isDemoActive ? "EXIT SIH DEMO MODE" : "SIH PRESENTATION DEMO"}</span>}
           </button>
         </div>
 

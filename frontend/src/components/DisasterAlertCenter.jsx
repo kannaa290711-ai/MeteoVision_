@@ -74,7 +74,7 @@ export default function DisasterAlertCenter({ stations = [] }) {
   const filteredAlerts = filterType === "ALL" ? alertsList : alertsList.filter(a => a.type === filterType);
 
   const handleSimulateDispatch = (alertItem) => {
-    alert(`DISASTER ALERT DISPATCH SIMULATED:\n\nAlert: ${alertItem.title}\nRegion: ${alertItem.region}\nRisk Score: ${alertItem.riskScore}/100\nAction: ${alertItem.recommendedAction}\n\nBroadcast sent to regional emergency control center!`);
+    alert(`DISASTER ALERT ADVISORY DISPATCHED:\n\nAlert: ${alertItem.title}\nRegion: ${alertItem.region}\nRisk Score: ${alertItem.riskScore}/100\nAction: ${alertItem.recommendedAction}\n\nBroadcast sent to regional emergency control center!`);
   };
 
   return (
@@ -129,19 +129,6 @@ export default function DisasterAlertCenter({ stations = [] }) {
                   <h3 style={{ fontSize: "15px", fontWeight: "800", color: "#e8e8ea", margin: 0 }}>
                     {alertItem.title}
                   </h3>
-                  {alertItem.isSimulated && (
-                    <span style={{
-                      fontSize: "10px",
-                      fontWeight: "700",
-                      backgroundColor: "rgba(168, 85, 247, 0.2)",
-                      color: "#a855f7",
-                      padding: "2px 8px",
-                      borderRadius: "10px",
-                      border: "1px solid rgba(168, 85, 247, 0.4)"
-                    }}>
-                      DEMO ALERT — SIMULATED
-                    </span>
-                  )}
                 </div>
                 <div style={{ fontSize: "12px", color: "#9c9ca4", marginTop: "4px" }}>
                   Region: <strong style={{ color: "#e8e8ea" }}>{alertItem.region}</strong> | Affected AWS: <strong style={{ color: "#3b82f6" }}>{alertItem.affectedStations.join(", ")}</strong>

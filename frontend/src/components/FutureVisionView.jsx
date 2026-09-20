@@ -38,7 +38,6 @@ export default function FutureVisionView() {
             }}>
               <Sparkles size={13} /> PHASE 4 & BEYOND ROADMAP
             </span>
-            <span style={{ fontSize: "11px", color: "#6c6c74" }}>| SIH Problem Statement 26073 Vision</span>
           </div>
           <h1 style={{ fontSize: "22px", fontWeight: "700", letterSpacing: "0.5px", color: "#e8e8ea" }}>
             METEOVISION — Technical Roadmap & Strategic Vision

@@ -6,7 +6,7 @@ export default function FaultReasoningCard({ flag, stationName = "Mahabaleshwar 
 
   const rawType = (flag.predicted_fault_type || flag.fault_type || "spike").toLowerCase();
   
-  // Map raw fault type string to 10 supported SIH fault types
+  // Map raw fault type string to supported fault types
   let faultTypeLabel = "SUDDEN SPIKE";
   if (rawType.includes("drop")) faultTypeLabel = "SUDDEN DROP";
   else if (rawType.includes("drift")) faultTypeLabel = "DRIFT";
@@ -49,7 +49,7 @@ export default function FaultReasoningCard({ flag, stationName = "Mahabaleshwar 
 
   const accentColor = getSeverityColor(severity);
 
-  // Dynamic 4-Part SIH Reasonings
+  // Dynamic 4-Part Fault Reasonings
   let whatHappened = `${variable} suddenly increased/deviated from ${expectedVal}°C → ${detectedVal}°C.`;
   let whySuspicious = [
     `Change occurred within one single reading interval.`,
